@@ -1,25 +1,48 @@
 package pl.coderslab;
 import org.apache.commons.lang3.StringUtils;
 
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         String database = "src/main/java/pl/coderslab/database.txt";
-        try {
-            writeToFile(database);
-        } catch (IOException e) {
+        showList(database);
+
+//        try {
+//            writeToFile(database);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+
+    }
+    public static void showList(String database){
+        File file = new File(database);
+
+        try (Scanner scan = new Scanner(file)) {
+            int counter = 0;
+            while (scan.hasNextLine()) {
+//                String[] stringArray = new String[3];
+          //      System.out.println(scan.nextLine());
+                String line = scan.nextLine();
+                String[] sArr = line.split(",");
+
+                System.out.print(counter+": ");
+                System.out.printf("%-35.35s",sArr[0]);
+                System.out.print(" ");
+                System.out.printf("%-10.10s",sArr[1]);
+                System.out.print(" ");
+                System.out.printf("%-5.5s",sArr[2]);
+                System.out.println();
+                counter++;
+            }
+        } catch(FileNotFoundException e){
             e.printStackTrace();
         }
-
     }
 
     public static void writeToFile(String database) throws IOException {
