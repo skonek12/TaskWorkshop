@@ -1,0 +1,9 @@
+stoi a nie jedzie,2020-31-13,true
+o kurna polecial!,5445-54-23,true
+pojedzie czy nie pojedzie?,2090-32-23,false
+jajade powoli kurna,2332-23-54,true
+Stanley kubric,2020-21-12,true
+asdfsdfsdfsdf,asdasdasd,asdasdasd
+dfgdfgdfg,dfgdfg,dfgdfg
+gdfgdfgdfg,dfgdfg,dfgdfg
+vsdfsdfsdf,5434-43-34,true
