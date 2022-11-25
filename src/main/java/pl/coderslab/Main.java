@@ -5,21 +5,53 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
+    static String[] yesNoRetry = {"yes", "no", "retry"};
+    static String[] yesNo = {"yes", "no"};
+    static String[] menu = {"yes", "no"};
+
     public static void main(String[] args) throws IOException {
-
         String database = "src/main/java/pl/coderslab/database.txt";
-        showList(database);
+        String menuList = wrongKeyLoop(menu);
 
-//        try {
-//            writeToFile(database);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        switch (menuList) {
+
+
+            
+        }
+
+
+
+//        showList(database);
+
+        try {
+            writeToFile(database);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
+
+    public static String wrongKeyLoop(String[] keys) {
+        Scanner scan = new Scanner(System.in);
+
+        while (true) {
+            String input = scan.nextLine();
+            String inputLowerCase = StringUtils.lowerCase(input);
+            for (int i = 0; i < keys.length; i++) {
+                String strCheck = keys[i];
+                if (strCheck.equals(inputLowerCase)) {
+                    return inputLowerCase;
+                }
+            }
+            System.out.println("Try again");
+        }
+    }
+
+
     public static void showList(String database){
         File file = new File(database);
 
@@ -59,7 +91,9 @@ public class Main {
                 String isImportant = scan.nextLine();
                 System.out.println("Do you want to add this entry to the database or try again? [Yes] or [No] or [Retry]");
                 System.out.println("[ "+task+" ] [ "+date+" ] [ "+isImportant+" ]");
-                String pushThrough = StringUtils.lowerCase(scan.nextLine());
+//                String pushThrough = StringUtils.lowerCase(scan.nextLine());
+
+                String pushThrough = wrongKeyLoop(yesNoRetry);
 
                 if (pushThrough.equals("yes")) {
                     writer.append(task+","+date+","+isImportant+"\n");
