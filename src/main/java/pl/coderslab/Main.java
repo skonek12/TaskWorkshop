@@ -4,10 +4,6 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -35,26 +31,17 @@ public class Main {
                     break;
                 case "exit":
                     isDone = true;
+                    System.out.println(ConsoleColors.RED_BRIGHT+"Bye, bye.");
                     break;
             }
             if (isDone)
                 break;
         }
-
-
-//        showList(database);
-
-//        try {
-//            addEntry(database);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-
     }
 
     public static void showMenu(String[] menu) {
         System.out.println();
-        System.out.println("Please select an option:");
+        System.out.println(ConsoleColors.BLUE+"Please select an option:"+ConsoleColors.WHITE_BRIGHT);
         for (int i = 0; i < menu.length; i++) {
             System.out.println(menu[i]);
         }
@@ -77,6 +64,25 @@ public class Main {
         }
     }
 
+    public static int wrongNumber(int counter) {
+        Scanner scan = new Scanner(System.in);
+
+        while (true) {
+            try {
+                int input = scan.nextInt();
+                if (input < 0) {
+                    System.out.println("This is negative number. Please type an index of the entry you want to delete.");
+                } else if (input > counter){
+                    System.out.println("Number is to high. Please type an index of the entry you want to delete.");
+                } else {
+                    return input;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("This is not a number. Please type an index of the entry you want to delete.");
+            }
+        }
+    }
+
 
     public static void showList(String database) {
         File file = new File(database);
@@ -84,8 +90,6 @@ public class Main {
         try (Scanner scan = new Scanner(file)) {
             int counter = 0;
             while (scan.hasNextLine()) {
-//                String[] stringArray = new String[3];
-                //      System.out.println(scan.nextLine());
                 String line = scan.nextLine();
                 String[] sArr = line.split(",");
 
@@ -118,7 +122,6 @@ public class Main {
                 System.out.println("Do you want to add this entry to the database or try again? [Yes] or [No] or [Retry]");
                 System.out.println("[ " + task + " ] [ " + date + " ] [ " + isImportant + " ]");
 
-
                 String pushThrough = wrongKeyLoop(yesNoRetry);
 
                 if (pushThrough.equals("yes")) {
@@ -142,10 +145,9 @@ public class Main {
 
     public static void removeEntry(String database) {
         File file = new File(database);
-           Scanner scanner = new Scanner(System.in);
 
-             System.out.println("Which entry would you like to remove?");
-           int indexToRemove = scanner.nextInt();
+
+
 
         int counter = 0;
         try (Scanner scan = new Scanner(file)) {
@@ -157,6 +159,8 @@ public class Main {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+        System.out.println("Which entry would you like to remove?");
+        int indexToRemove = wrongNumber(counter);
             String[] lineArray = new String[counter];
 
             try (Scanner scan = new Scanner(file)) {
